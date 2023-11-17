@@ -1,4 +1,4 @@
-import {mult, splitIntoWords, sum} from './01';
+import {mult, sum} from './01';
 
 test('sum should be correct', () => {
     const a = 1;

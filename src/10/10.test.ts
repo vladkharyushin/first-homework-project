@@ -1,4 +1,4 @@
-import {barber, changeLaptop, CustomerType, moveCustomer} from "./10";
+import {addNewBooks, barber, changeLaptop, CustomerType, moveCustomer, updateCompanyTitle} from "./10";
 
 test('reference type test', () => {
     let customer: CustomerType = {
@@ -10,7 +10,23 @@ test('reference type test', () => {
         hair_length: 12,
         laptop: {
             title: "huawei"
-        }
+        },
+        books: [
+            'js',
+            'html',
+            'css',
+            'react'
+        ],
+        companies: [
+            {
+                id: 1,
+                title:"AVD"
+            },
+            {
+                id: 2,
+                title: "Aгат"
+            }
+        ]
     }
     const cutCustomer = barber(customer, 2)
 
@@ -29,7 +45,23 @@ test("change address", () => {
         hair_length: 12,
         laptop: {
             title: "huawei"
-        }
+        },
+        books: [
+            'js',
+            'html',
+            'css',
+            'react'
+        ],
+        companies: [
+            {
+            id: 1,
+            title:"AVD"
+            },
+            {
+                id: 2,
+                title: "Aгат"
+            }
+        ]
     }
     const movedCustomer = moveCustomer(customer, "Moscow")
 
@@ -49,7 +81,23 @@ test("change laptop", () => {
         hair_length: 12,
         laptop: {
             title: "huawei"
-        }
+        },
+        books: [
+            'js',
+            'html',
+            'css',
+            'react'
+        ],
+        companies: [
+            {
+                id: 1,
+                title:"AVD"
+            },
+            {
+                id: 2,
+                title: "Aгат"
+            }
+        ]
     }
     const customerCopy = changeLaptop(customer, "Macbook")
 
@@ -60,3 +108,74 @@ test("change laptop", () => {
     expect(customer.laptop.title).toBe("huawei")
 })
 
+test("add new books", () => {
+    let customer: CustomerType = {
+        name: "Vlad",
+        address: {
+            city: "Kirov",
+            house: 13
+        },
+        hair_length: 12,
+        laptop: {
+            title: "huawei"
+        },
+        books: [
+            'js',
+            'html',
+            'css',
+            'react'
+        ],
+        companies: [
+            {
+                id: 1,
+                title:"AVD"
+            },
+            {
+                id: 2,
+                title: "Aгат"
+            }
+        ]
+    }
+    const customerCopy = addNewBooks(customer, ['rest api', 'ts'])
+
+    expect(customer).not.toBe(customerCopy)
+    expect(customer.books).not.toBe(customerCopy.books)
+    expect(customer.laptop).toBe(customerCopy.laptop)
+    expect(customer.address).toBe(customerCopy.address)
+})
+
+test("update company title", () => {
+    let customer: CustomerType = {
+        name: "Vlad",
+        address: {
+            city: "Kirov",
+            house: 13
+        },
+        hair_length: 12,
+        laptop: {
+            title: "huawei"
+        },
+        books: [
+            'js',
+            'html',
+            'css',
+            'react'
+        ],
+        companies: [
+            {
+                id: 1,
+                title: "AVD"
+            },
+            {
+                id: 2,
+                title: "Aгат"
+            }
+        ]
+    }
+    const customerCopy = updateCompanyTitle(customer, 2, "Agat")
+
+    expect(customer).not.toBe(customerCopy)
+    expect(customer.address).toBe(customerCopy.address)
+    expect(customer.companies).not.toBe(customerCopy.companies)
+    expect(customerCopy.companies[1].title).toBe("Agat")
+})

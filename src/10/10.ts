@@ -8,7 +8,10 @@ export type CustomerType= {
     laptop: {
         title: string
     }
+    books: Array<string>,
+    companies: Array<{id: number, title: string}>
 }
+
 
 export function barber(c: CustomerType, cut: number) {
     const copy = {
@@ -32,7 +35,7 @@ export function moveCustomer(c: CustomerType, city: string) {
 }
 
 export function changeLaptop(c: CustomerType, laptop: string) {
-    const copy = {
+    const copy: CustomerType = {
         ...c,
         laptop: {
             ...c.laptop,
@@ -41,3 +44,26 @@ export function changeLaptop(c: CustomerType, laptop: string) {
     }
     return copy
 }
+
+export function addNewBooks(c: CustomerType, newBooks: Array<string>) {
+    const copy = {
+        ...c,
+        books: {
+            ...c.laptop,
+            books: [...c.books, newBooks]
+        }
+    }
+    return copy
+}
+
+export function updateCompanyTitle(
+    c: CustomerType,
+    companyId: number,
+    newTitle: string
+    ) {
+    const copy: CustomerType = {
+        ...c,
+        companies: c.companies.map(c => c.id === companyId ? {...c, title: newTitle} : c)
+        }
+    return copy
+    }
